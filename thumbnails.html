@@ -1,0 +1,1176 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ideas de Miniaturas — ClipForge</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.18), transparent 30%),
+                radial-gradient(circle at 85% 20%, rgba(59, 130, 246, 0.14), transparent 30%),
+                #080812;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        nav {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(8,8,18,0.75);
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .pro {
+            color: #a78bfa !important;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1250px;
+            margin: 55px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(139,92,246,0.15);
+            border: 1px solid rgba(139,92,246,0.35);
+            color: #c4b5fd;
+            padding: 8px 15px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(35px, 5vw, 58px);
+            margin-bottom: 15px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 17px;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 25px;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .panel h2 {
+            font-size: 19px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #bbb;
+            font-size: 13px;
+            margin-bottom: 8px;
+            margin-top: 18px;
+        }
+
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.25);
+            color: white;
+            border-radius: 12px;
+            padding: 13px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 135px;
+            resize: vertical;
+        }
+
+        textarea:focus,
+        select:focus {
+            border-color: #8b5cf6;
+        }
+
+        select option {
+            background: #151522;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+
+        .generate-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            transition: 0.2s;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124,58,237,0.25);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .results-header h2 {
+            margin: 0;
+        }
+
+        .copy-all {
+            background: rgba(139,92,246,0.15);
+            border: 1px solid rgba(139,92,246,0.3);
+            padding: 9px 13px;
+            border-radius: 9px;
+            font-size: 12px;
+        }
+
+        .idea-card {
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            animation: appear 0.3s ease;
+        }
+
+        .idea-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .idea-title {
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .number {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: rgba(139,92,246,0.15);
+            color: #c4b5fd;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .field {
+            margin-top: 14px;
+        }
+
+        .field-label {
+            color: #9ca3af;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .field-text {
+            color: #ddd;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .copy-card {
+            margin-top: 15px;
+            background: rgba(255,255,255,0.07);
+            padding: 9px 12px;
+            border-radius: 9px;
+            font-size: 12px;
+        }
+
+        .empty {
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #777;
+        }
+
+        .empty-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            display: none;
+            min-height: 450px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            color: #aaa;
+        }
+
+        .spinner {
+            width: 42px;
+            height: 42px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .error {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.2);
+            color: #fca5a5;
+            font-size: 13px;
+        }
+
+        /* PRO PAYWALL */
+
+        .pro-paywall {
+            display: none;
+            min-height: 450px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .pro-icon {
+            font-size: 58px;
+            margin-bottom: 18px;
+        }
+
+        .pro-paywall h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .pro-paywall p {
+            color: #999;
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .pro-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 28px;
+        }
+
+        .pro-benefit {
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(139,92,246,0.08);
+            border: 1px solid rgba(139,92,246,0.15);
+            color: #ddd;
+            font-size: 13px;
+        }
+
+        .pro-button {
+            padding: 14px 25px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .pro-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+        }
+
+        .pro-back {
+            margin-top: 18px;
+            color: #999;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .pro-back:hover {
+            color: #fff;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 850px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .pro-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-paywall h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="tools.html">Herramientas</a>
+        <a href="pro.html" class="pro">💎 PRO</a>
+    </div>
+
+</nav>
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="badge">
+            ⚡ CLIPFORGE PRO
+        </div>
+
+        <h1>
+            Diseña una miniatura que <span class="gradient">destaque.</span>
+        </h1>
+
+        <p class="subtitle">
+            Obtén conceptos de miniatura pensados para conseguir más clics.
+        </p>
+
+    </div>
+
+    <div class="workspace">
+
+        <div class="panel">
+
+            <h2>⚙️ Configuración</h2>
+
+            <label for="topic">
+                ¿De qué trata tu vídeo?
+            </label>
+
+            <textarea
+                id="topic"
+                placeholder="Ejemplo: He conseguido ganar la Torre Batalla de Kanto con un equipo Pokémon..."
+            ></textarea>
+
+            <label for="platform">
+                Plataforma
+            </label>
+
+            <select id="platform">
+
+                <option value="YouTube">
+                    YouTube
+                </option>
+
+                <option value="TikTok">
+                    TikTok
+                </option>
+
+                <option value="Instagram Reels">
+                    Instagram Reels
+                </option>
+
+                <option value="YouTube Shorts">
+                    YouTube Shorts
+                </option>
+
+            </select>
+
+            <label for="style">
+                Estilo
+            </label>
+
+            <select id="style">
+
+                <option value="VIRAL">
+                    🔥 Viral
+                </option>
+
+                <option value="IMPACTANTE">
+                    😱 Impactante
+                </option>
+
+                <option value="MISTERIO">
+                    🕵️ Misterio
+                </option>
+
+                <option value="DIVERTIDO">
+                    😂 Divertido
+                </option>
+
+                <option value="POLÉMICO">
+                    💥 Polémico
+                </option>
+
+                <option value="GAMING">
+                    🎮 Gaming
+                </option>
+
+            </select>
+
+            <label for="amount">
+                Cantidad de conceptos
+            </label>
+
+            <select id="amount">
+
+                <option value="3">
+                    3 conceptos
+                </option>
+
+                <option value="5">
+                    5 conceptos
+                </option>
+
+            </select>
+
+            <button
+                class="generate-btn"
+                id="generateButton"
+            >
+                ✨ Crear ideas de miniatura
+            </button>
+
+            <div
+                class="error"
+                id="errorBox"
+            ></div>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="results-header">
+
+                <h2>
+                    ✨ Conceptos
+                </h2>
+
+                <button
+                    class="copy-all"
+                    id="copyAllButton"
+                >
+                    📋 Copiar todo
+                </button>
+
+            </div>
+
+            <div
+                id="emptyState"
+                class="empty"
+            >
+
+                <div>
+
+                    <div class="empty-icon">
+                        🖼️
+                    </div>
+
+                    <p>
+                        Tu próxima miniatura<br>
+                        puede empezar aquí.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div
+                id="loadingState"
+                class="loading"
+            >
+
+                <div class="spinner"></div>
+
+                <div>
+                    Diseñando conceptos...
+                </div>
+
+            </div>
+
+            <div
+                id="proPaywall"
+                class="pro-paywall"
+            >
+
+                <div class="pro-icon">
+                    💎
+                </div>
+
+                <h2>
+                    Desbloquea ClipForge PRO
+                </h2>
+
+                <p>
+                    Esta herramienta forma parte de ClipForge PRO.
+                    Desbloquea todas las herramientas avanzadas para llevar
+                    tus vídeos al siguiente nivel.
+                </p>
+
+                <div class="pro-benefits">
+
+                    <div class="pro-benefit">
+                        ♾️ Ideas ilimitadas
+                    </div>
+
+                    <div class="pro-benefit">
+                        📝 Guiones completos
+                    </div>
+
+                    <div class="pro-benefit">
+                        🎣 Hooks potentes
+                    </div>
+
+                    <div class="pro-benefit">
+                        #️⃣ Títulos y hashtags
+                    </div>
+
+                    <div class="pro-benefit">
+                        🖼️ Ideas de miniaturas
+                    </div>
+
+                    <div class="pro-benefit">
+                        📈 Analizador viral
+                    </div>
+
+                    <div class="pro-benefit">
+                        🎯 Adaptador de nicho
+                    </div>
+
+                    <div class="pro-benefit">
+                        🔥 Mejorador de ideas
+                    </div>
+
+                </div>
+
+                <button
+                    class="pro-button"
+                    id="unlockProButton"
+                >
+                    🚀 Desbloquear PRO
+                </button>
+
+                <a
+                    href="tools.html#pro"
+                    class="pro-back"
+                >
+                    ← Ver herramientas PRO
+                </a>
+
+            </div>
+
+            <div
+                id="results"
+                style="display:none;"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    const generateButton =
+        document.getElementById("generateButton");
+
+    const topicInput =
+        document.getElementById("topic");
+
+    const platformInput =
+        document.getElementById("platform");
+
+    const styleInput =
+        document.getElementById("style");
+
+    const amountInput =
+        document.getElementById("amount");
+
+    const emptyState =
+        document.getElementById("emptyState");
+
+    const loadingState =
+        document.getElementById("loadingState");
+
+    const results =
+        document.getElementById("results");
+
+    const proPaywall =
+        document.getElementById("proPaywall");
+
+    const errorBox =
+        document.getElementById("errorBox");
+
+    const copyAllButton =
+        document.getElementById("copyAllButton");
+
+    const unlockProButton =
+        document.getElementById("unlockProButton");
+
+
+    let currentConcepts = [];
+
+
+    generateButton.addEventListener(
+        "click",
+        generateThumbnails
+    );
+
+
+    async function generateThumbnails() {
+
+        const topic =
+            topicInput.value.trim();
+
+        errorBox.style.display =
+            "none";
+
+        proPaywall.style.display =
+            "none";
+
+
+        if (!topic) {
+
+            showError(
+                "Escribe primero de qué trata tu vídeo."
+            );
+
+            return;
+
+        }
+
+
+        generateButton.disabled =
+            true;
+
+        generateButton.innerText =
+            "⏳ Diseñando...";
+
+
+        emptyState.style.display =
+            "none";
+
+        results.style.display =
+            "none";
+
+        loadingState.style.display =
+            "flex";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/generate-thumbnails",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            topic:
+                                topic,
+
+                            platform:
+                                platformInput.value,
+
+                            style:
+                                styleInput.value,
+
+                            amount:
+                                Number(
+                                    amountInput.value
+                                )
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                response.status === 403 &&
+                data.code === "PRO_REQUIRED"
+            ) {
+
+                loadingState.style.display =
+                    "none";
+
+                emptyState.style.display =
+                    "none";
+
+                results.style.display =
+                    "none";
+
+                proPaywall.style.display =
+                    "flex";
+
+                return;
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "No se pudieron crear los conceptos."
+                );
+
+            }
+
+
+            currentConcepts =
+                data.concepts || [];
+
+
+            renderResults();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showError(
+                error.message
+            );
+
+            loadingState.style.display =
+                "none";
+
+            emptyState.style.display =
+                "flex";
+
+        } finally {
+
+            generateButton.disabled =
+                false;
+
+            generateButton.innerText =
+                "✨ Crear ideas de miniatura";
+
+        }
+
+    }
+
+
+    function renderResults() {
+
+        results.innerHTML =
+            "";
+
+
+        currentConcepts.forEach(
+            (concept, index) => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className =
+                    "idea-card";
+
+
+                card.innerHTML = `
+
+                    <div class="idea-top">
+
+                        <div class="number">
+                            ${index + 1}
+                        </div>
+
+                        <div class="idea-title">
+                            ${escapeHTML(
+                                concept.title
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <div class="field-label">
+                            💡 Concepto
+                        </div>
+
+                        <div class="field-text">
+                            ${escapeHTML(
+                                concept.concept
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <div class="field-label">
+                            🧍 Elementos
+                        </div>
+
+                        <div class="field-text">
+                            ${escapeHTML(
+                                concept.elements
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <div class="field-label">
+                            📝 Texto de la miniatura
+                        </div>
+
+                        <div class="field-text">
+                            ${escapeHTML(
+                                concept.text
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <div class="field-label">
+                            🎨 Estilo visual
+                        </div>
+
+                        <div class="field-text">
+                            ${escapeHTML(
+                                concept.style
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <div class="field-label">
+                            👀 Por qué funciona
+                        </div>
+
+                        <div class="field-text">
+                            ${escapeHTML(
+                                concept.why
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <button class="copy-card">
+                        📋 Copiar concepto
+                    </button>
+
+                `;
+
+
+                const copyButton =
+                    card.querySelector(
+                        ".copy-card"
+                    );
+
+
+                copyButton.addEventListener(
+                    "click",
+                    async () => {
+
+                        const text =
+
+`MINIATURA ${index + 1}
+
+Título:
+${concept.title}
+
+Concepto:
+${concept.concept}
+
+Elementos:
+${concept.elements}
+
+Texto:
+${concept.text}
+
+Estilo:
+${concept.style}
+
+Por qué funciona:
+${concept.why}`;
+
+
+                        await navigator.clipboard.writeText(
+                            text
+                        );
+
+
+                        copyButton.innerText =
+                            "✓ Copiado";
+
+
+                        setTimeout(
+                            () => {
+
+                                copyButton.innerText =
+                                    "📋 Copiar concepto";
+
+                            },
+                            1500
+                        );
+
+                    }
+                );
+
+
+                results.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        loadingState.style.display =
+            "none";
+
+        results.style.display =
+            "block";
+
+    }
+
+
+    copyAllButton.addEventListener(
+        "click",
+        async () => {
+
+            if (!currentConcepts.length) {
+                return;
+            }
+
+
+            const text =
+                currentConcepts
+                    .map(
+                        (concept, index) =>
+
+`MINIATURA ${index + 1}
+
+Título:
+${concept.title}
+
+Concepto:
+${concept.concept}
+
+Elementos:
+${concept.elements}
+
+Texto:
+${concept.text}
+
+Estilo:
+${concept.style}
+
+Por qué funciona:
+${concept.why}`
+                    )
+                    .join(
+                        "\n\n----------------\n\n"
+                    );
+
+
+            await navigator.clipboard.writeText(
+                text
+            );
+
+
+            copyAllButton.innerText =
+                "✓ Copiado";
+
+
+            setTimeout(
+                () => {
+
+                    copyAllButton.innerText =
+                        "📋 Copiar todo";
+
+                },
+                1500
+            );
+
+        }
+    );
+
+
+    unlockProButton.addEventListener(
+        "click",
+        () => {
+
+            alert(
+                "🚀 El sistema de pago de ClipForge PRO todavía no está conectado. Lo añadiremos después."
+            );
+
+        }
+    );
+
+
+    function showError(message) {
+
+        errorBox.innerText =
+            message;
+
+        errorBox.style.display =
+            "block";
+
+    }
+
+
+    function escapeHTML(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            text || "";
+
+        return div.innerHTML;
+
+    }
+
+</script>
+
+</body>
+</html>
+

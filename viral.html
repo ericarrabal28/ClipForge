@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analizador Viral - ClipForge</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .gradient {
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .viral-panel {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .viral-box {
+            background: rgba(20, 10, 40, 0.75);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            border-radius: 22px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .viral-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .viral-textarea,
+        .viral-select {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(10, 5, 25, 0.9);
+            color: white;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .viral-textarea {
+            min-height: 140px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .viral-textarea:focus,
+        .viral-select:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+        }
+
+        .viral-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .viral-field {
+            margin-bottom: 20px;
+        }
+
+        .viral-button {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 22px;
+            font-size: 16px;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(90deg, #7c3aed, #db2777);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .viral-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .viral-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* RESULTADOS */
+
+        .viral-results {
+            margin-top: 35px;
+        }
+
+        .viral-score-box {
+            text-align: center;
+            background: rgba(20, 10, 40, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 22px;
+            padding: 30px;
+            margin-bottom: 22px;
+        }
+
+        .viral-score-title {
+            font-size: 14px;
+            opacity: 0.75;
+            margin-bottom: 8px;
+        }
+
+        .viral-score {
+            font-size: 64px;
+            line-height: 1;
+            font-weight: 900;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .viral-score-subtitle {
+            margin-top: 10px;
+            opacity: 0.75;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .analysis-card {
+            background: rgba(20, 10, 40, 0.75);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .analysis-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .analysis-card h3 {
+            margin: 0 0 12px 0;
+            font-size: 18px;
+        }
+
+        .analysis-card p {
+            margin: 0;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .analysis-card.strengths {
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .analysis-card.weaknesses {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .analysis-card.improvements {
+            border-color: rgba(168, 85, 247, 0.45);
+        }
+
+        .viral-loading {
+            text-align: center;
+            padding: 35px;
+            background: rgba(20, 10, 40, 0.7);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 18px;
+        }
+
+        .viral-spinner {
+            width: 35px;
+            height: 35px;
+            border: 4px solid rgba(168, 85, 247, 0.2);
+            border-top-color: #a855f7;
+            border-radius: 50%;
+            animation: viralSpin 0.8s linear infinite;
+            margin: 0 auto 15px auto;
+        }
+
+        /* PRO PAYWALL */
+
+        .pro-paywall {
+            display: none;
+            text-align: center;
+            background: rgba(20, 10, 40, 0.8);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            border-radius: 22px;
+            padding: 45px 30px;
+            margin-top: 35px;
+        }
+
+        .pro-icon {
+            font-size: 58px;
+            margin-bottom: 18px;
+        }
+
+        .pro-paywall h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .pro-paywall p {
+            color: rgba(255,255,255,0.65);
+            max-width: 550px;
+            line-height: 1.6;
+            margin: 0 auto 25px auto;
+        }
+
+        .pro-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto 28px auto;
+        }
+
+        .pro-benefit {
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(168,85,247,0.08);
+            border: 1px solid rgba(168,85,247,0.18);
+            color: #ddd;
+            font-size: 13px;
+        }
+
+        .pro-button {
+            border: none;
+            padding: 14px 25px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #7c3aed, #db2777);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pro-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+        }
+
+        .pro-back {
+            display: block;
+            margin-top: 18px;
+            color: #999;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .pro-back:hover {
+            color: #fff;
+        }
+
+        @keyframes viralSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .viral-box {
+                padding: 20px;
+            }
+
+            .viral-row {
+                grid-template-columns: 1fr;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analysis-card.full {
+                grid-column: auto;
+            }
+
+            .viral-score {
+                font-size: 52px;
+            }
+
+            .pro-benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-paywall h2 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="tools.html">Herramientas</a>
+        <a href="pro.html" class="pro">💎 PRO</a>
+    </div>
+
+</nav>
+
+
+    <main class="generator">
+
+        <div class="generator-header">
+
+            <span class="badge">
+                📈 ANALIZADOR VIRAL
+            </span>
+
+            <h1>
+                ¿Tu idea puede hacerse
+                <span class="gradient">viral?</span>
+            </h1>
+
+            <p>
+                Analiza tu idea de vídeo y descubre su potencial de viralidad,
+                retención y clics.
+            </p>
+
+        </div>
+
+
+        <div class="viral-panel">
+
+            <div class="viral-box">
+
+                <div class="viral-field">
+
+                    <label class="viral-label">
+                        💡 Idea de tu vídeo
+                    </label>
+
+                    <textarea
+                        id="topic"
+                        class="viral-textarea"
+                        placeholder="Escribe aquí tu idea de vídeo..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="viral-row">
+
+                    <div>
+
+                        <label class="viral-label">
+                            📱 Plataforma
+                        </label>
+
+                        <select
+                            id="platform"
+                            class="viral-select"
+                        >
+
+                            <option value="YouTube">
+                                YouTube
+                            </option>
+
+                            <option value="TikTok">
+                                TikTok
+                            </option>
+
+                            <option value="Instagram Reels">
+                                Instagram Reels
+                            </option>
+
+                            <option value="YouTube Shorts">
+                                YouTube Shorts
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="viral-label">
+                            🎬 Estilo
+                        </label>
+
+                        <select
+                            id="style"
+                            class="viral-select"
+                        >
+
+                            <option value="VIRAL">
+                                🔥 Viral
+                            </option>
+
+                            <option value="Gaming">
+                                🎮 Gaming
+                            </option>
+
+                            <option value="Educativo">
+                                📚 Educativo
+                            </option>
+
+                            <option value="Entretenimiento">
+                                😂 Entretenimiento
+                            </option>
+
+                            <option value="Storytelling">
+                                📖 Storytelling
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="analyzeButton"
+                    class="viral-button"
+                >
+                    📈 Analizar potencial viral
+                </button>
+
+            </div>
+
+
+            <div
+                id="proPaywall"
+                class="pro-paywall"
+            >
+
+                <div class="pro-icon">
+                    💎
+                </div>
+
+                <h2>
+                    Desbloquea ClipForge PRO
+                </h2>
+
+                <p>
+                    Esta herramienta forma parte de ClipForge PRO.
+                    Desbloquea todas las herramientas avanzadas para llevar
+                    tus vídeos al siguiente nivel.
+                </p>
+
+                <div class="pro-benefits">
+
+                    <div class="pro-benefit">
+                        ♾️ Ideas ilimitadas
+                    </div>
+
+                    <div class="pro-benefit">
+                        📝 Guiones completos
+                    </div>
+
+                    <div class="pro-benefit">
+                        🎣 Hooks potentes
+                    </div>
+
+                    <div class="pro-benefit">
+                        #️⃣ Títulos y hashtags
+                    </div>
+
+                    <div class="pro-benefit">
+                        🖼️ Ideas de miniaturas
+                    </div>
+
+                    <div class="pro-benefit">
+                        📈 Analizador viral
+                    </div>
+
+                    <div class="pro-benefit">
+                        🎯 Adaptador de nicho
+                    </div>
+
+                    <div class="pro-benefit">
+                        🔥 Mejorador de ideas
+                    </div>
+
+                </div>
+
+                <button
+                    class="pro-button"
+                    id="unlockProButton"
+                >
+                    🚀 Desbloquear PRO
+                </button>
+
+                <a
+                    href="tools.html#pro"
+                    class="pro-back"
+                >
+                    ← Ver herramientas PRO
+                </a>
+
+            </div>
+
+
+            <div
+                id="results"
+                class="viral-results"
+            ></div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const analyzeButton =
+            document.getElementById("analyzeButton");
+
+        const results =
+            document.getElementById("results");
+
+        const proPaywall =
+            document.getElementById("proPaywall");
+
+        const unlockProButton =
+            document.getElementById("unlockProButton");
+
+        const topicInput =
+            document.getElementById("topic");
+
+        const platformInput =
+            document.getElementById("platform");
+
+        const styleInput =
+            document.getElementById("style");
+
+
+        analyzeButton.addEventListener(
+            "click",
+            analyzeIdea
+        );
+
+
+        async function analyzeIdea() {
+
+            const topic =
+                topicInput.value.trim();
+
+            const platform =
+                platformInput.value;
+
+            const style =
+                styleInput.value;
+
+
+            proPaywall.style.display =
+                "none";
+
+
+            if (!topic) {
+
+                results.innerHTML = `
+                    <div class="viral-error">
+                        ⚠️ Escribe primero una idea para analizar.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            analyzeButton.disabled =
+                true;
+
+            analyzeButton.innerText =
+                "⏳ Analizando...";
+
+
+            results.innerHTML = `
+
+                <div class="viral-loading">
+
+                    <div class="viral-spinner"></div>
+
+                    <strong>
+                        Analizando tu idea...
+                    </strong>
+
+                    <p>
+                        Estamos estudiando su potencial viral.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/analyze-viral",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                topic:
+                                    topic,
+
+                                platform:
+                                    platform,
+
+                                style:
+                                    style
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (
+                    response.status === 403 &&
+                    data.code === "PRO_REQUIRED"
+                ) {
+
+                    results.innerHTML = "";
+
+                    proPaywall.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.error ||
+                        "No se pudo analizar la idea."
+                    );
+
+                }
+
+
+                showResults(data);
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                results.innerHTML = `
+
+                    <div class="viral-error">
+
+                        ❌ ${escapeHTML(
+                            error.message ||
+                            "Ha ocurrido un error."
+                        )}
+
+                    </div>
+
+                `;
+
+            } finally {
+
+                analyzeButton.disabled =
+                    false;
+
+                analyzeButton.innerText =
+                    "📈 Analizar potencial viral";
+
+            }
+
+        }
+
+
+        function showResults(data) {
+
+            const score =
+                Number(data.score) || 0;
+
+
+            results.innerHTML = `
+
+                <div class="viral-score-box">
+
+                    <div class="viral-score-title">
+                        POTENCIAL VIRAL
+                    </div>
+
+                    <div class="viral-score">
+                        ${score}/100
+                    </div>
+
+                    <div class="viral-score-subtitle">
+                        Evaluación basada en clics,
+                        retención y capacidad de destacar.
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-grid">
+
+                    <div class="analysis-card">
+
+                        <h3>
+                            🖱️ Potencial de clics
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                data.clicks ||
+                                "No disponible."
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-card">
+
+                        <h3>
+                            👀 Potencial de retención
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                data.retention ||
+                                "No disponible."
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-card strengths">
+
+                        <h3>
+                            💪 Puntos fuertes
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                data.strengths ||
+                                "No disponible."
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-card weaknesses">
+
+                        <h3>
+                            ⚠️ Puntos débiles
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                data.weaknesses ||
+                                "No disponible."
+                            )}
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-card improvements full">
+
+                        <h3>
+                            🚀 Cómo mejorarla
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                                data.improvements ||
+                                "No disponible."
+                            )}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        unlockProButton.addEventListener(
+            "click",
+            () => {
+
+                alert(
+                    "🚀 El sistema de pago de ClipForge PRO todavía no está conectado. Lo añadiremos después."
+                );
+
+            }
+        );
+
+
+        function escapeHTML(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                String(text);
+
+            return div.innerHTML;
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+
