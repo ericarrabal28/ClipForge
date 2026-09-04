@@ -2,7 +2,7 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "clipforge",
   "main": "worker.js",
-  "compatibility_date": "2026-09-04",
+  "compatibility_date": "2026-09-01",
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
