@@ -2,3 +2,10 @@ node_modules
 .wrangler
 .git
 .env
+worker.js
+server.js
+package.json
+package-lock.json
+wrangler.jsonc
+.gitignore
+.assetsignore
