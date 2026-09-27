@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "clipforge",
+  "compatibility_date": "2026-09-03",
+  "assets": {
+    "directory": ".",
+    "exclude": [
+      "node_modules",
+      ".git",
+      ".wrangler"
+    ]
+  }
+}
