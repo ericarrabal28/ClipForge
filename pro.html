@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClipForge PRO</title>
+
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        color: white;
+        background:
+            radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.35), transparent 35%),
+            linear-gradient(135deg, #080510, #10051d 50%, #080510);
+    }
+
+    nav {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 7%;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        background: rgba(5, 3, 12, 0.75);
+        backdrop-filter: blur(15px);
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -1px;
+    }
+
+    .logo span {
+        color: #a855f7;
+    }
+
+    nav div:last-child {
+        display: flex;
+        gap: 28px;
+    }
+
+nav a {
+    color: #aaa8b5;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+
+nav a:hover {
+    color: white;
+    background: rgba(255,255,255,0.06);
+}
+
+    .hero {
+        text-align: center;
+        padding: 75px 20px 35px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: rgba(168, 85, 247, 0.15);
+        border: 1px solid rgba(168, 85, 247, 0.35);
+        color: #d8b4fe;
+        font-weight: 700;
+        margin-bottom: 22px;
+    }
+
+    h1 {
+        font-size: clamp(42px, 7vw, 76px);
+        line-height: 1;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #fff, #d8b4fe, #a855f7);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .hero p {
+        max-width: 650px;
+        margin: auto;
+        color: #aaa1b5;
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .pricing {
+        width: min(1100px, 92%);
+        margin: 35px auto 80px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 480px;
+        padding: 38px;
+        border-radius: 28px;
+        background: linear-gradient(145deg, rgba(34, 17, 55, 0.95), rgba(17, 8, 30, 0.95));
+        border: 1px solid rgba(168, 85, 247, 0.5);
+        box-shadow:
+            0 0 60px rgba(124, 58, 237, 0.18),
+            inset 0 1px rgba(255,255,255,0.06);
+    }
+
+    .pro-title {
+        font-size: 30px;
+        font-weight: 900;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        font-size: 52px;
+        font-weight: 900;
+        margin: 20px 0 5px;
+    }
+
+    .price small {
+        font-size: 18px;
+        color: #a9a0b2;
+        font-weight: 500;
+    }
+
+    .description {
+        color: #aaa1b5;
+        margin-bottom: 28px;
+        line-height: 1.5;
+    }
+
+    .features {
+        display: grid;
+        gap: 13px;
+        margin-bottom: 30px;
+    }
+
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.035);
+        color: #e8e1ed;
+    }
+
+    .feature span {
+        font-size: 20px;
+    }
+
+    .buy-button {
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        padding: 17px;
+        font-size: 17px;
+        font-weight: 900;
+        color: white;
+        cursor: pointer;
+        background: linear-gradient(90deg, #7c3aed, #a855f7);
+        box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        transition: 0.2s;
+    }
+
+    .buy-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 35px rgba(168, 85, 247, 0.4);
+    }
+
+    .secure {
+        text-align: center;
+        margin-top: 15px;
+        color: #777080;
+        font-size: 13px;
+    }
+
+    .tools {
+        width: min(1000px, 92%);
+        margin: 0 auto 80px;
+        text-align: center;
+    }
+
+    .tools h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .tool {
+        padding: 20px 14px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.035);
+        border: 1px solid rgba(255,255,255,0.07);
+        color: #ddd5e5;
+    }
+
+    .tool-icon {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .tool-name {
+        font-weight: 700;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        border-top: 1px solid rgba(255,255,255,0.07);
+        color: #716a78;
+        font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+        .tool-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        nav {
+            padding: 0 20px;
+        }
+
+        nav div:last-child {
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .hero {
+            padding-top: 50px;
+        }
+
+        .card {
+            padding: 25px;
+        }
+
+        .tool-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="tools.html">Herramientas</a>
+        <a href="pro.html" class="pro">💎 PRO</a>
+    </div>
+
+</nav>
+
+<section class="hero">
+    <div class="badge">💎 CLIPFORGE PRO</div>
+
+    <h1>Desbloquea todo tu potencial.</h1>
+
+    <p>
+        Lleva tus ideas de contenido al siguiente nivel con todas las
+        herramientas de ClipForge sin límites.
+    </p>
+</section>
+
+<section class="pricing">
+
+    <div class="card">
+
+        <div class="pro-title">💎 ClipForge PRO</div>
+
+        <div class="price">
+            4,99€ <small>/ mes</small>
+        </div>
+
+        <div class="description">
+            Todo lo que necesitas para crear contenido viral,
+            en un solo lugar.
+        </div>
+
+        <div class="features">
+
+            <div class="feature">
+                <span>♾️</span>
+                <div>Ideas ilimitadas</div>
+            </div>
+
+            <div class="feature">
+                <span>📝</span>
+                <div>Generador de guiones completos</div>
+            </div>
+
+            <div class="feature">
+                <span>🎣</span>
+                <div>Generador de hooks</div>
+            </div>
+
+            <div class="feature">
+                <span>#️⃣</span>
+                <div>Títulos y hashtags</div>
+            </div>
+
+            <div class="feature">
+                <span>🖼️</span>
+                <div>Conceptos de miniaturas</div>
+            </div>
+
+            <div class="feature">
+                <span>📈</span>
+                <div>Analizador viral</div>
+            </div>
+
+            <div class="feature">
+                <span>🎯</span>
+                <div>Adaptador de nicho</div>
+            </div>
+
+            <div class="feature">
+                <span>🔥</span>
+                <div>Mejorador de ideas</div>
+            </div>
+
+        </div>
+
+        <button class="buy-button" id="buyButton">
+            🚀 Desbloquear PRO
+        </button>
+
+        <div class="secure">
+            🔒 Pago seguro · Cancela cuando quieras
+        </div>
+
+    </div>
+
+</section>
+
+<section class="tools">
+
+    <h2>Todo esto incluido en PRO</h2>
+
+    <div class="tool-grid">
+
+        <div class="tool">
+            <div class="tool-icon">💡</div>
+            <div class="tool-name">Ideas</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">📝</div>
+            <div class="tool-name">Guiones</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">🎣</div>
+            <div class="tool-name">Hooks</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">#️⃣</div>
+            <div class="tool-name">Títulos</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">🖼️</div>
+            <div class="tool-name">Miniaturas</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">📈</div>
+            <div class="tool-name">Analizador viral</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">🎯</div>
+            <div class="tool-name">Nicho</div>
+        </div>
+
+        <div class="tool">
+            <div class="tool-icon">🔥</div>
+            <div class="tool-name">Mejorador</div>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 ClipForge · Crea. Mejora. Crece.
+</footer>
+
+<script>
+    document.getElementById("buyButton").addEventListener("click", function () {
+        alert("💎 El sistema de pagos todavía no está conectado. ¡Lo configuraremos en el siguiente paso!");
+    });
+</script>
+
+
+</body>
+</html>

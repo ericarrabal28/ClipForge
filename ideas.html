@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generador de ideas | ClipForge</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .idea-card {
+            animation: cardAppear 0.55s ease forwards;
+            opacity: 0;
+        }
+
+        .idea-card:nth-child(1) { animation-delay: 0.05s; }
+        .idea-card:nth-child(2) { animation-delay: 0.10s; }
+        .idea-card:nth-child(3) { animation-delay: 0.15s; }
+        .idea-card:nth-child(4) { animation-delay: 0.20s; }
+        .idea-card:nth-child(5) { animation-delay: 0.25s; }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+
+        .idea-card {
+            position: relative;
+            padding: 25px;
+            border-radius: 18px;
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.055),
+                rgba(255,255,255,0.02)
+            );
+            border: 1px solid rgba(255,255,255,0.10);
+            overflow: hidden;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .idea-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #8b5cf6,
+                transparent
+            );
+            opacity: 0;
+            transition: 0.25s;
+        }
+
+
+        .idea-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139,92,246,0.45);
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.25),
+                0 0 25px rgba(139,92,246,0.08);
+        }
+
+
+        .idea-card:hover::before {
+            opacity: 1;
+        }
+
+
+        .idea-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+
+        .idea-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.25);
+            color: #b9a3ff;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+
+        .idea-ai {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(139,92,246,0.10);
+            border: 1px solid rgba(139,92,246,0.20);
+            color: #b9a3ff;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        .idea-card h3 {
+            font-size: 21px;
+            line-height: 1.3;
+            margin: 0 0 22px;
+            color: white;
+        }
+
+
+        .idea-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+
+        .idea-stat {
+            padding: 13px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+
+        .idea-stat-label {
+            display: block;
+            color: #777;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+
+        .idea-stat-value {
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        .viral-score {
+            color: #a78bfa;
+        }
+
+
+        .idea-section {
+            margin-top: 16px;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+
+        .idea-section strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: #999;
+        }
+
+
+        .idea-section p {
+            margin: 0;
+            color: #c2c2ca;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        .idea-section.hook {
+            background: linear-gradient(
+                135deg,
+                rgba(139,92,246,0.12),
+                rgba(139,92,246,0.035)
+            );
+            border-color: rgba(139,92,246,0.20);
+        }
+
+
+        .idea-section.hook strong {
+            color: #a78bfa;
+        }
+
+
+        .idea-section.hook p {
+            color: white;
+            font-weight: 600;
+        }
+
+
+        .mini-script {
+            background: linear-gradient(
+                135deg,
+                rgba(34,197,94,0.08),
+                rgba(34,197,94,0.025)
+            );
+            border-color: rgba(34,197,94,0.15);
+        }
+
+
+        .mini-script strong {
+            color: #86efac;
+        }
+
+
+        .copy-button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+
+        .copy-button:hover {
+            background: rgba(139,92,246,0.18);
+            border-color: rgba(139,92,246,0.35);
+        }
+
+
+        .copy-button.copied {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: white;
+        }
+
+
+        .results-header {
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+
+
+        .results-header h2 {
+            margin-bottom: 6px;
+        }
+
+
+        .results-header span {
+            color: #888;
+            font-size: 13px;
+        }
+
+
+        .results-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+
+        .results-actions button {
+            padding: 12px 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+
+        .again-button {
+            background: #6c5ce7;
+            color: white;
+        }
+
+
+        .again-button:hover {
+            transform: translateY(-2px);
+            background: #7c6cf0;
+        }
+
+
+        .clear-button {
+            background: #eeeeee;
+            color: #333;
+        }
+
+
+        .clear-button:hover {
+            transform: translateY(-2px);
+        }
+
+
+        .free-uses {
+            margin-top: 12px;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+        }
+
+
+        .free-uses strong {
+            color: #a78bfa;
+        }
+
+
+        .pro-banner {
+            position: relative;
+            margin-top: 60px;
+            padding: 35px;
+            border-radius: 22px;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                rgba(139,92,246,0.18),
+                rgba(30,20,60,0.45)
+            );
+            border: 1px solid rgba(139,92,246,0.35);
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.25),
+                0 0 40px rgba(139,92,246,0.08);
+        }
+
+
+        .pro-banner::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            right: -80px;
+            top: -100px;
+            border-radius: 50%;
+            background: rgba(139,92,246,0.18);
+            filter: blur(50px);
+        }
+
+
+        .pro-badge {
+            display: inline-flex;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(139,92,246,0.18);
+            border: 1px solid rgba(167,139,250,0.35);
+            color: #c4b5fd;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+
+        .pro-banner h2 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            color: white;
+        }
+
+
+        .pro-banner p {
+            margin: 0;
+            max-width: 650px;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+
+        .pro-button {
+            margin-top: 22px;
+            padding: 13px 22px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(
+                135deg,
+                #8b5cf6,
+                #6d28d9
+            );
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow:
+                0 8px 25px rgba(139,92,246,0.25);
+            transition: 0.2s;
+        }
+
+
+        .pro-button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 12px 30px rgba(139,92,246,0.35);
+        }
+
+
+        .pro-section {
+            margin-top: 25px;
+        }
+
+
+        .pro-section-title {
+            margin-bottom: 18px;
+        }
+
+
+        .pro-section-title h2 {
+            margin: 0 0 6px;
+            color: white;
+        }
+
+
+        .pro-section-title p {
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+        }
+
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+
+        .pro-card {
+            position: relative;
+            min-height: 150px;
+            padding: 22px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.07);
+            overflow: hidden;
+        }
+
+
+        .pro-card.locked {
+            opacity: 0.72;
+        }
+
+
+        .pro-card-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+
+        .pro-card h3 {
+            margin: 0 0 7px;
+            color: white;
+            font-size: 16px;
+        }
+
+
+        .pro-card p {
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        .lock {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 8px;
+            border-radius: 8px;
+            background: rgba(139,92,246,0.12);
+            color: #a78bfa;
+            font-size: 11px;
+        }
+
+
+        .loading-box {
+            position: relative;
+            margin-top: 25px;
+            padding: 45px 25px;
+            text-align: center;
+            border-radius: 18px;
+            background: linear-gradient(
+                135deg,
+                rgba(108,92,231,0.12),
+                rgba(108,92,231,0.03)
+            );
+            border: 1px solid rgba(108,92,231,0.5);
+            box-shadow:
+                0 0 30px rgba(108,92,231,0.12);
+            overflow: hidden;
+        }
+
+
+        .loading-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: #6c5ce7;
+            animation: loadingLine 1.5s infinite;
+        }
+
+
+        @keyframes loadingLine {
+
+            0% {
+                left: -100%;
+            }
+
+            50% {
+                left: 0;
+            }
+
+            100% {
+                left: 100%;
+            }
+
+        }
+
+
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(108,92,231,0.2);
+            border-top-color: #6c5ce7;
+            border-radius: 50%;
+            animation: spinner 0.8s linear infinite;
+        }
+
+
+        @keyframes spinner {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        .loading-box h3 {
+            margin: 0 0 8px;
+            font-size: 22px;
+        }
+
+
+        .loading-box p {
+            margin: 0;
+            color: #999;
+        }
+
+
+        .loading-dots {
+            margin-top: 18px;
+            font-size: 22px;
+            letter-spacing: 4px;
+            color: #6c5ce7;
+            animation: dots 1.2s infinite;
+        }
+
+
+        @keyframes dots {
+
+            0%, 20% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            80%, 100% {
+                opacity: 0.2;
+            }
+
+        }
+
+
+        #generateButton {
+            transition: 0.2s;
+        }
+
+
+        #generateButton.loading-button {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+
+        .error {
+            padding: 20px;
+            border-radius: 12px;
+            background: #ffe5e5;
+            color: #b00020;
+            margin-top: 20px;
+        }
+
+
+        .limit-box {
+            position: relative;
+            margin-top: 35px;
+            padding: 40px 30px;
+            text-align: center;
+            border-radius: 22px;
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(139,92,246,0.20),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    135deg,
+                    rgba(139,92,246,0.14),
+                    rgba(20,15,35,0.8)
+                );
+            border: 1px solid rgba(139,92,246,0.4);
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.3),
+                0 0 50px rgba(139,92,246,0.10);
+        }
+
+
+        .limit-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+
+        .limit-box h2 {
+            color: white;
+            margin: 0 0 12px;
+            font-size: 28px;
+        }
+
+
+        .limit-box p {
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+
+        .limit-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                #8b5cf6,
+                #6d28d9
+            );
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+
+        .limit-button:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 10px 30px rgba(139,92,246,0.35);
+        }
+
+
+        .limit-features {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+
+        .limit-feature {
+            padding: 17px;
+            border-radius: 13px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+
+        .limit-feature strong {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+
+        .limit-feature span {
+            color: #777;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+
+        @media (max-width: 900px) {
+
+            .pro-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .results-actions {
+                flex-direction: column;
+            }
+
+            .results-actions button {
+                width: 100%;
+            }
+
+            .idea-card {
+                padding: 20px;
+            }
+
+            .loading-box {
+                padding: 35px 20px;
+            }
+
+            .idea-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .pro-banner {
+                padding: 25px;
+            }
+
+            .pro-banner h2,
+            .limit-box h2 {
+                font-size: 23px;
+            }
+
+            .pro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .limit-box {
+                padding: 30px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="tools.html">
+            Herramientas
+        </a>
+
+        <a href="pro.html" class="nav-pro">
+            💎 PRO
+        </a>
+
+    </div>
+
+</nav>
+
+    </nav>
+
+
+    <main class="generator">
+
+
+        <div class="generator-header">
+
+            <span class="badge">
+                ✨ CREATOR AI
+            </span>
+
+            <h1>
+                Generador de ideas
+            </h1>
+
+            <p>
+                Encuentra ideas originales para tus próximos vídeos
+                en segundos.
+            </p>
+
+        </div>
+
+
+        <div class="generator-box">
+
+
+            <label>
+                ¿Sobre qué quieres crear contenido?
+            </label>
+
+            <input
+                type="text"
+                id="topic"
+                placeholder="Ej: tecnología, fútbol, videojuegos..."
+            >
+
+
+            <label>
+                Plataforma
+            </label>
+
+            <select id="platform">
+
+                <option value="YouTube">
+                    YouTube
+                </option>
+
+                <option value="YouTube Shorts">
+                    YouTube Shorts
+                </option>
+
+                <option value="TikTok">
+                    TikTok
+                </option>
+
+                <option value="Instagram Reels">
+                    Instagram Reels
+                </option>
+
+            </select>
+
+
+            <label>
+                Tipo de contenido
+            </label>
+
+            <select id="content">
+
+                <option value="Entretenimiento">
+                    Entretenimiento
+                </option>
+
+                <option value="Educativo">
+                    Educativo
+                </option>
+
+                <option value="Informativo">
+                    Informativo
+                </option>
+
+                <option value="Gaming">
+                    Gaming
+                </option>
+
+                <option value="Opinión">
+                    Opinión
+                </option>
+
+                <option value="Storytelling">
+                    Storytelling
+                </option>
+
+            </select>
+
+
+            <label style="margin-top:18px;">
+                🎨 Estilo del vídeo
+            </label>
+
+
+            <span style="
+                display:block;
+                margin-top:7px;
+                margin-bottom:10px;
+                color:#777;
+                font-size:12px;
+            ">
+
+                Elige cómo quieres que sean las ideas generadas.
+
+            </span>
+
+
+            <select id="style">
+
+                <option value="VIRAL">
+                    🔥 Viral
+                </option>
+
+                <option value="DIVERTIDO">
+                    😂 Divertido
+                </option>
+
+                <option value="MISTERIO">
+                    😱 Misterio
+                </option>
+
+                <option value="EDUCATIVO">
+                    🧠 Educativo
+                </option>
+
+                <option value="POLÉMICO">
+                    💀 Polémico
+                </option>
+
+                <option value="STORYTELLING">
+                    📖 Storytelling
+                </option>
+
+                <option value="RANKING / TOP">
+                    🏆 Ranking / Top
+                </option>
+
+                <option value="TUTORIAL">
+                    💡 Tutorial
+                </option>
+
+                <option value="GAMING">
+                    🎮 Gaming
+                </option>
+
+            </select>
+
+
+            <button id="generateButton">
+
+                ✨ Generar ideas
+
+            </button>
+
+
+            <div
+                id="freeUses"
+                class="free-uses"
+            ></div>
+
+
+        </div>
+
+
+        <div
+            id="results"
+            class="results"
+        ></div>
+
+
+        <section id="pro" class="pro-section">
+
+
+            <div class="pro-banner">
+
+                <span class="pro-badge">
+                    💎 CLIPFORGE PRO
+                </span>
+
+
+                <h2>
+                    Lleva tus ideas al siguiente nivel
+                </h2>
+
+
+                <p>
+                    Desbloquea herramientas avanzadas para convertir
+                    una simple idea en un vídeo completo con potencial
+                    de viralidad.
+                </p>
+
+
+                <button
+                    class="pro-button"
+                    onclick="showProLimit()"
+                >
+
+                    ✨ Desbloquear PRO
+
+                </button>
+
+            </div>
+
+
+            <div class="pro-section-title">
+
+                <h2>
+                    Herramientas PRO
+                </h2>
+
+                <p>
+                    Funciones avanzadas para creadores.
+                </p>
+
+            </div>
+
+
+            <div class="pro-grid">
+
+
+                <div class="pro-card locked">
+
+                    <span class="lock">
+                        🔒 PRO
+                    </span>
+
+                    <div class="pro-card-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Guiones completos
+                    </h3>
+
+                    <p>
+                        Convierte cualquier idea en un guion
+                        completo listo para grabar.
+                    </p>
+
+                </div>
+
+
+                <div class="pro-card locked">
+
+                    <span class="lock">
+                        🔒 PRO
+                    </span>
+
+                    <div class="pro-card-icon">
+                        🎣
+                    </div>
+
+                    <h3>
+                        Generador de Hooks
+                    </h3>
+
+                    <p>
+                        Genera múltiples hooks para aumentar
+                        la retención del vídeo.
+                    </p>
+
+                </div>
+
+
+                <div class="pro-card locked">
+
+                    <span class="lock">
+                        🔒 PRO
+                    </span>
+
+                    <div class="pro-card-icon">
+                        🖼️
+                    </div>
+
+                    <h3>
+                        Ideas de miniaturas
+                    </h3>
+
+                    <p>
+                        Crea conceptos y textos para miniaturas
+                        diseñados para conseguir más clics.
+                    </p>
+
+                </div>
+
+
+                <div class="pro-card locked">
+
+                    <span class="lock">
+                        🔒 PRO
+                    </span>
+
+                    <div class="pro-card-icon">
+                        #️⃣
+                    </div>
+
+                    <h3>
+                        Títulos y hashtags
+                    </h3>
+
+                    <p>
+                        Genera títulos atractivos y hashtags
+                        adaptados a tu contenido.
+                    </p>
+
+                </div>
+
+
+                <div class="pro-card locked">
+
+                    <span class="lock">
+                        🔒 PRO
+                    </span>
+
+                    <div class="pro-card-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        Analizador viral
+                    </h3>
+
+                    <p>
+                        Analiza una idea y descubre cómo
+                        mejorar su potencial.
+                    </p>
+
+                </div>
+
+
+                <div class="pro-card locked">
+
+                    <span class="lock">
+                        🔒 PRO
+                    </span>
+
+                    <div class="pro-card-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Adaptación de nicho
+                    </h3>
+
+                    <p>
+                        Adapta automáticamente tus ideas
+                        a diferentes públicos y nichos.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+
+        const MAX_FREE_USES = 2;
+
+
+        const generateButton =
+            document.getElementById("generateButton");
+
+
+        const results =
+            document.getElementById("results");
+
+
+        const freeUses =
+            document.getElementById("freeUses");
+
+
+        /* =====================================================
+           ACTUALIZAR CONTADOR
+        ===================================================== */
+
+        function updateFreeCounter(remaining) {
+
+            if (remaining > 0) {
+
+                freeUses.innerHTML = `
+                    Te quedan
+                    <strong>${remaining}</strong>
+                    de ${MAX_FREE_USES}
+                    generaciones gratuitas.
+                `;
+
+            } else {
+
+                freeUses.innerHTML = `
+                    🔒 Has utilizado tus
+                    <strong>${MAX_FREE_USES}</strong>
+                    generaciones gratuitas.
+                `;
+
+            }
+
+        }
+
+
+        /*
+           Al principio mostramos las 2 generaciones.
+           El servidor es quien realmente controla el límite.
+        */
+
+        updateFreeCounter(2);
+
+
+        /* =====================================================
+           BOTÓN PRINCIPAL
+        ===================================================== */
+
+        generateButton.addEventListener(
+            "click",
+            generateIdeas
+        );
+
+
+        /* =====================================================
+           GENERAR IDEAS
+        ===================================================== */
+
+        async function generateIdeas() {
+
+
+            const topic =
+                document
+                    .getElementById("topic")
+                    .value
+                    .trim();
+
+
+            const platform =
+                document
+                    .getElementById("platform")
+                    .value;
+
+
+            const content =
+                document
+                    .getElementById("content")
+                    .value;
+
+
+            const style =
+                document
+                    .getElementById("style")
+                    .value;
+
+
+            /* =================================================
+               COMPROBAR TEMA
+            ================================================= */
+
+            if (!topic) {
+
+                results.innerHTML = `
+
+                    <div class="error">
+
+                        ⚠️ Escribe primero sobre qué quieres
+                        crear contenido.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            /* =================================================
+               LOADING
+            ================================================= */
+
+            generateButton.disabled = true;
+
+            generateButton.classList.add(
+                "loading-button"
+            );
+
+            generateButton.innerHTML =
+                "⏳ Creando ideas...";
+
+
+            results.innerHTML = `
+
+                <div class="loading-box">
+
+                    <div class="loading-spinner"></div>
+
+                    <h3>
+                        ClipForge está creando tus ideas
+                    </h3>
+
+                    <p>
+                        La IA está adaptando las ideas a tu estilo.
+                    </p>
+
+                    <div class="loading-dots">
+                        • • •
+                    </div>
+
+                </div>
+
+            `;
+
+
+            /* =================================================
+               PETICIÓN AL SERVIDOR
+            ================================================= */
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        "/api/generate-ideas",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                topic: topic,
+
+                                platform: platform,
+
+                                content: content,
+
+                                style: style
+
+                            })
+
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                /* =================================================
+                   LÍMITE FREE
+                ================================================= */
+
+                if (
+                    response.status === 403 &&
+                    data.error === "FREE_LIMIT_REACHED"
+                ) {
+
+                    updateFreeCounter(0);
+
+                    showProLimit();
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   ERROR
+                ================================================= */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.error ||
+                        "Error al generar ideas."
+                    );
+
+                }
+
+
+                /* =================================================
+                   ACTUALIZAR CONTADOR
+                ================================================= */
+
+                if (
+                    typeof data.remaining === "number"
+                ) {
+
+                    updateFreeCounter(
+                        data.remaining
+                    );
+
+                }
+
+
+                /* =================================================
+                   VALIDAR IDEAS
+                ================================================= */
+
+                if (
+                    !data.ideas ||
+                    !Array.isArray(data.ideas)
+                ) {
+
+                    throw new Error(
+                        "La IA no devolvió una respuesta válida."
+                    );
+
+                }
+
+
+                /* =================================================
+                   MOSTRAR RESULTADOS
+                ================================================= */
+
+                results.innerHTML = `
+
+                    <div class="results-header">
+
+                        <h2>
+                            Ideas para ${escapeHtml(topic)}
+                        </h2>
+
+                        <span>
+
+                            ${escapeHtml(platform)}
+                            ·
+                            ${escapeHtml(content)}
+                            ·
+                            ${escapeHtml(
+                                document
+                                    .getElementById("style")
+                                    .options[
+                                        document
+                                            .getElementById("style")
+                                            .selectedIndex
+                                    ]
+                                    .text
+                            )}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="ideas-grid">
+
+                        ${data.ideas.map(
+                            (idea, index) => `
+
+                            <div class="idea-card">
+
+
+                                <div class="idea-top">
+
+                                    <span class="idea-number">
+
+                                        ${String(
+                                            index + 1
+                                        ).padStart(2, "0")}
+
+                                    </span>
+
+
+                                    <span class="idea-ai">
+
+                                        ✨ AI
+
+                                    </span>
+
+                                </div>
+
+
+                                <h3>
+
+                                    ${escapeHtml(
+                                        idea.title
+                                    )}
+
+                                </h3>
+
+
+                                <div class="idea-stats">
+
+
+                                    <div class="idea-stat">
+
+                                        <span class="idea-stat-label">
+                                            🔥 VIRAL SCORE
+                                        </span>
+
+
+                                        <span class="idea-stat-value viral-score">
+
+                                            ${escapeHtml(
+                                                idea.viralScore || "—"
+                                            )}
+
+                                            / 100
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="idea-stat">
+
+                                        <span class="idea-stat-label">
+                                            ⏱️ DURACIÓN
+                                        </span>
+
+
+                                        <span class="idea-stat-value">
+
+                                            ${escapeHtml(
+                                                idea.duration || "—"
+                                            )}
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="idea-section">
+
+                                    <strong>
+                                        EXPLICACIÓN
+                                    </strong>
+
+                                    <p>
+
+                                        ${escapeHtml(
+                                            idea.explanation
+                                        )}
+
+                                    </p>
+
+                                </div>
+
+
+                                <div class="idea-section hook">
+
+                                    <strong>
+                                        ⚡ HOOK
+                                    </strong>
+
+                                    <p>
+
+                                        ${escapeHtml(
+                                            idea.hook
+                                        )}
+
+                                    </p>
+
+                                </div>
+
+
+                                <div class="idea-section mini-script">
+
+                                    <strong>
+                                        📝 MINI GUION
+                                    </strong>
+
+                                    <p>
+
+                                        ${escapeHtml(
+                                            idea.miniScript ||
+                                            "No disponible"
+                                        )}
+
+                                    </p>
+
+                                </div>
+
+
+                                <button
+                                    class="copy-button"
+                                    onclick="copyIdea(this)"
+                                >
+
+                                    📋 Copiar idea
+
+                                </button>
+
+
+                            </div>
+
+                        `
+                        ).join("")}
+
+                    </div>
+
+
+                    <div class="results-actions">
+
+                        <button
+                            class="again-button"
+                            onclick="generateIdeas()"
+                        >
+
+                            🔄 Generar otras 5 ideas
+
+                        </button>
+
+
+                        <button
+                            class="clear-button"
+                            onclick="clearResults()"
+                        >
+
+                            🧹 Limpiar
+
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "❌ Error:",
+                    error
+                );
+
+
+                results.innerHTML = `
+
+                    <div class="error">
+
+                        ❌ No se han podido generar las ideas.
+
+                        <br><br>
+
+                        ${escapeHtml(
+                            error.message
+                        )}
+
+                    </div>
+
+                `;
+
+            }
+
+
+            finally {
+
+                generateButton.disabled = false;
+
+                generateButton.classList.remove(
+                    "loading-button"
+                );
+
+                generateButton.innerHTML =
+                    "✨ Generar ideas";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           COPIAR IDEA
+        ===================================================== */
+
+        async function copyIdea(button) {
+
+
+            const card =
+                button.closest(
+                    ".idea-card"
+                );
+
+
+            const title =
+                card
+                    .querySelector("h3")
+                    .innerText;
+
+
+            const sections =
+                card.querySelectorAll(
+                    ".idea-section"
+                );
+
+
+            const explanation =
+                sections[0]
+                    .querySelector("p")
+                    .innerText;
+
+
+            const hook =
+                sections[1]
+                    .querySelector("p")
+                    .innerText;
+
+
+            const miniScript =
+                sections[2]
+                    .querySelector("p")
+                    .innerText;
+
+
+            const stats =
+                card.querySelectorAll(
+                    ".idea-stat-value"
+                );
+
+
+            const viralScore =
+                stats[0]
+                    ? stats[0].innerText
+                    : "";
+
+
+            const duration =
+                stats[1]
+                    ? stats[1].innerText
+                    : "";
+
+
+            const text = `💡 ${title}
+
+🔥 VIRAL SCORE:
+${viralScore}
+
+⏱️ DURACIÓN:
+${duration}
+
+EXPLICACIÓN:
+
+${explanation}
+
+⚡ HOOK:
+
+${hook}
+
+📝 MINI GUION:
+
+${miniScript}`;
+
+
+            try {
+
+                await navigator
+                    .clipboard
+                    .writeText(text);
+
+
+                button.innerText =
+                    "✓ Idea copiada";
+
+
+                button.classList.add(
+                    "copied"
+                );
+
+
+                setTimeout(() => {
+
+                    button.innerText =
+                        "📋 Copiar idea";
+
+                    button.classList.remove(
+                        "copied"
+                    );
+
+                }, 2000);
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+                button.innerText =
+                    "❌ Error";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LIMPIAR
+        ===================================================== */
+
+        function clearResults() {
+
+            results.innerHTML = "";
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR PRO
+        ===================================================== */
+
+        function showProLimit() {
+
+
+            results.innerHTML = `
+
+                <div class="limit-box">
+
+
+                    <div class="limit-icon">
+                        🔒
+                    </div>
+
+
+                    <span class="pro-badge">
+                        💎 CLIPFORGE PRO
+                    </span>
+
+
+                    <h2>
+                        Has llegado al límite gratuito
+                    </h2>
+
+
+                    <p>
+
+                        Has utilizado tus
+                        <strong>
+                            ${MAX_FREE_USES}
+                        </strong>
+                        generaciones gratuitas.
+
+                        Desbloquea ClipForge PRO para
+                        generar ideas sin límites y
+                        acceder a todas las herramientas
+                        avanzadas para creadores.
+
+                    </p>
+
+
+                    <button
+                        class="limit-button"
+                        onclick="proComingSoon()"
+                    >
+
+                        💎 Desbloquear PRO
+
+                    </button>
+
+
+                    <div class="limit-features">
+
+
+                        <div class="limit-feature">
+
+                            <strong>
+                                ♾️ Ideas ilimitadas
+                            </strong>
+
+                            <span>
+                                Genera todas las ideas que necesites.
+                            </span>
+
+                        </div>
+
+
+                        <div class="limit-feature">
+
+                            <strong>
+                                📝 Guiones completos
+                            </strong>
+
+                            <span>
+                                Convierte tus ideas en guiones.
+                            </span>
+
+                        </div>
+
+
+                        <div class="limit-feature">
+
+                            <strong>
+                                🎣 Hooks avanzados
+                            </strong>
+
+                            <span>
+                                Crea hooks pensados para retención.
+                            </span>
+
+                        </div>
+
+
+                        <div class="limit-feature">
+
+                            <strong>
+                                🖼️ Ideas de miniaturas
+                            </strong>
+
+                            <span>
+                                Conceptos y textos para tus miniaturas.
+                            </span>
+
+                        </div>
+
+
+                        <div class="limit-feature">
+
+                            <strong>
+                                #️⃣ Títulos y hashtags
+                            </strong>
+
+                            <span>
+                                Títulos y hashtags adaptados.
+                            </span>
+
+                        </div>
+
+
+                        <div class="limit-feature">
+
+                            <strong>
+                                📈 Analizador viral
+                            </strong>
+
+                            <span>
+                                Mejora el potencial de tus ideas.
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           PRO
+        ===================================================== */
+
+        function proComingSoon() {
+
+            alert(
+                "💎 ClipForge PRO\n\n" +
+                "El sistema de compra estará disponible próximamente."
+            );
+
+        }
+
+
+        /* =====================================================
+           ESCAPAR HTML
+        ===================================================== */
+
+        function escapeHtml(text) {
+
+            if (
+                text === undefined ||
+                text === null
+            ) {
+
+                return "";
+            }
+
+
+            return String(text)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+    </script>
+
+</body>
+
+</html>

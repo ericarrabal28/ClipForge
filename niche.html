@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptador de Nicho — ClipForge</title>
+    <link rel="stylesheet" href="style.css">
+
+
+<style>
+    .niche-panel {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+
+    .niche-box {
+        background: rgba(20, 20, 30, 0.8);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .niche-field {
+        margin-bottom: 22px;
+    }
+
+    .niche-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .niche-textarea,
+    .niche-input,
+    .niche-select {
+        width: 100%;
+        box-sizing: border-box;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: white;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .niche-textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .niche-select option {
+        background: #181820;
+        color: white;
+    }
+
+    .niche-button {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .niche-button:hover {
+        transform: translateY(-2px);
+    }
+
+    .niche-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .niche-results {
+        margin-top: 25px;
+    }
+
+    .niche-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 15px;
+    }
+
+    .niche-card h3 {
+        margin-top: 0;
+    }
+
+    .niche-card p {
+        line-height: 1.6;
+        color: #d1d5db;
+    }
+
+    .niche-loading,
+    .niche-error {
+        text-align: center;
+        padding: 25px;
+        border-radius: 15px;
+        background: rgba(255,255,255,0.04);
+    }
+
+    .niche-error {
+        color: #fca5a5;
+    }
+
+    .niche-copy {
+        margin-top: 15px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+    .pro-paywall {
+        text-align: center;
+        padding: 40px 25px;
+        border-radius: 20px;
+        background: linear-gradient(
+            135deg,
+            rgba(124,58,237,0.15),
+            rgba(236,72,153,0.12)
+        );
+        border: 1px solid rgba(168,85,247,0.3);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .pro-icon {
+        font-size: 55px;
+        margin-bottom: 10px;
+    }
+
+    .pro-paywall h2 {
+        margin: 0 0 12px;
+        font-size: 30px;
+    }
+
+    .pro-paywall p {
+        max-width: 600px;
+        margin: 0 auto 25px;
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    .pro-benefits {
+        max-width: 500px;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        text-align: left;
+    }
+
+    .pro-benefit {
+        padding: 13px 15px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 10px;
+        color: #e5e7eb;
+    }
+
+    .pro-button {
+        display: inline-block;
+        border: none;
+        border-radius: 12px;
+        padding: 15px 28px;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .pro-button:hover {
+        transform: translateY(-2px);
+    }
+
+    .pro-back {
+        display: block;
+        margin-top: 18px;
+        color: #a78bfa;
+        text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+        .niche-box {
+            padding: 20px;
+        }
+
+        .pro-benefits {
+            grid-template-columns: 1fr;
+        }
+
+        .pro-paywall h2 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="tools.html">Herramientas</a>
+        <a href="pro.html" class="pro">💎 PRO</a>
+    </div>
+
+</nav>
+
+<main class="generator">
+
+    <div class="generator-header">
+        <span class="badge">🎯 ADAPTADOR DE NICHO</span>
+
+        <h1>
+            Adapta cualquier idea a tu
+            <span class="gradient">nicho</span>
+        </h1>
+
+        <p>
+            Convierte una idea general en contenido diseñado específicamente
+            para tu audiencia.
+        </p>
+    </div>
+
+    <div class="niche-panel">
+
+        <div class="niche-box">
+
+            <div class="niche-field">
+                <label class="niche-label">
+                    💡 Idea original
+                </label>
+
+                <textarea
+                    id="idea"
+                    class="niche-textarea"
+                    placeholder="Ejemplo: Quiero hacer un vídeo sobre las mejores armas de un videojuego..."
+                ></textarea>
+            </div>
+
+            <div class="niche-field">
+                <label class="niche-label">
+                    🎯 Tu nicho
+                </label>
+
+                <input
+                    id="niche"
+                    class="niche-input"
+                    placeholder="Ejemplo: Gaming, Pokémon, Minecraft, tecnología..."
+                >
+            </div>
+
+            <div class="niche-field">
+                <label class="niche-label">
+                    📱 Plataforma
+                </label>
+
+                <select id="platform" class="niche-select">
+                    <option>YouTube</option>
+                    <option>TikTok</option>
+                    <option>Instagram Reels</option>
+                    <option>YouTube Shorts</option>
+                </select>
+            </div>
+
+            <button id="adaptButton" class="niche-button">
+                🎯 Adaptar idea
+            </button>
+
+        </div>
+
+        <div id="results" class="niche-results"></div>
+
+    </div>
+
+</main>
+
+<script>
+
+    const adaptButton = document.getElementById("adaptButton");
+    const results = document.getElementById("results");
+
+    adaptButton.addEventListener("click", adaptIdea);
+
+    async function adaptIdea() {
+
+        const idea = document.getElementById("idea").value.trim();
+        const niche = document.getElementById("niche").value.trim();
+        const platform = document.getElementById("platform").value;
+
+        if (!idea || !niche) {
+
+            results.innerHTML = `
+                <div class="niche-error">
+                    Escribe una idea y un nicho antes de continuar.
+                </div>
+            `;
+
+            return;
+        }
+
+        adaptButton.disabled = true;
+        adaptButton.innerText = "⏳ Adaptando...";
+
+        results.innerHTML = `
+            <div class="niche-loading">
+                🧠 Analizando la idea y adaptándola a tu nicho...
+            </div>
+        `;
+
+        try {
+
+            const response = await fetch("/api/adapt-niche", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    idea,
+                    niche,
+                    platform
+                })
+
+            });
+
+            const data = await response.json();
+
+            if (
+                response.status === 403 &&
+                data.code === "PRO_REQUIRED"
+            ) {
+
+                results.innerHTML = `
+                    <div class="pro-paywall">
+
+                        <div class="pro-icon">💎</div>
+
+                        <h2>Desbloquea ClipForge PRO</h2>
+
+                        <p>
+                            El Adaptador de Nicho es una herramienta exclusiva
+                            de ClipForge PRO. Lleva tus ideas al siguiente nivel
+                            y crea contenido pensado para tu audiencia.
+                        </p>
+
+                        <div class="pro-benefits">
+
+                            <div class="pro-benefit">
+                                ♾️ Ideas ilimitadas
+                            </div>
+
+                            <div class="pro-benefit">
+                                📝 Guiones completos
+                            </div>
+
+                            <div class="pro-benefit">
+                                🎣 Hooks potentes
+                            </div>
+
+                            <div class="pro-benefit">
+                                #️⃣ Títulos y hashtags
+                            </div>
+
+                            <div class="pro-benefit">
+                                🖼️ Ideas de miniaturas
+                            </div>
+
+                            <div class="pro-benefit">
+                                📈 Analizador viral
+                            </div>
+
+                            <div class="pro-benefit">
+                                🎯 Adaptador de nicho
+                            </div>
+
+                            <div class="pro-benefit">
+                                🔥 Mejorador de ideas
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="pro-button"
+                            onclick="unlockPro()"
+                        >
+                            🚀 Desbloquear PRO
+                        </button>
+
+                        <a
+                            href="tools.html#pro"
+                            class="pro-back"
+                        >
+                            ← Ver herramientas PRO
+                        </a>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    data.error || "Ha ocurrido un error."
+                );
+            }
+
+            results.innerHTML = `
+
+                <div class="niche-card">
+
+                    <h3>🎯 Idea adaptada</h3>
+
+                    <p>
+                        ${escapeHTML(data.adaptedIdea)}
+                    </p>
+
+                    <button
+                        class="niche-copy"
+                        onclick="copyText(this, '${escapeAttribute(data.adaptedIdea)}')"
+                    >
+                        📋 Copiar idea
+                    </button>
+
+                </div>
+
+                <div class="niche-card">
+
+                    <h3>🪝 Hook recomendado</h3>
+
+                    <p>
+                        ${escapeHTML(data.hook)}
+                    </p>
+
+                    <button
+                        class="niche-copy"
+                        onclick="copyText(this, '${escapeAttribute(data.hook)}')"
+                    >
+                        📋 Copiar hook
+                    </button>
+
+                </div>
+
+                <div class="niche-card">
+
+                    <h3>👥 Público objetivo</h3>
+
+                    <p>
+                        ${escapeHTML(data.audience)}
+                    </p>
+
+                </div>
+
+                <div class="niche-card">
+
+                    <h3>🔥 Por qué puede funcionar</h3>
+
+                    <p>
+                        ${escapeHTML(data.whyItWorks)}
+                    </p>
+
+                </div>
+
+                <div class="niche-card">
+
+                    <h3>💡 Consejos</h3>
+
+                    <p>
+                        ${escapeHTML(data.tips)}
+                    </p>
+
+                </div>
+
+            `;
+
+        } catch (error) {
+
+            results.innerHTML = `
+                <div class="niche-error">
+                    ❌ ${escapeHTML(error.message)}
+                </div>
+            `;
+
+        } finally {
+
+            adaptButton.disabled = false;
+            adaptButton.innerText = "🎯 Adaptar idea";
+
+        }
+    }
+
+    async function copyText(button, text) {
+
+        try {
+
+            await navigator.clipboard.writeText(text);
+
+            const original = button.innerText;
+
+            button.innerText = "✓ Copiado";
+
+            setTimeout(() => {
+                button.innerText = original;
+            }, 2000);
+
+        } catch (error) {
+
+            alert("No se pudo copiar el texto.");
+
+        }
+    }
+
+    function unlockPro() {
+
+        alert(
+            "🚀 El sistema de pagos de ClipForge PRO todavía no está conectado. ¡Lo añadiremos próximamente!"
+        );
+
+    }
+
+    function escapeHTML(text) {
+
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+    function escapeAttribute(text) {
+
+        return String(text)
+            .replace(/\\/g, "\\\\")
+            .replace(/'/g, "\\'")
+            .replace(/\n/g, "\\n")
+            .replace(/\r/g, "");
+
+    }
+
+</script>
+
+
+</body>
+</html>

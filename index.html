@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>ClipForge | Crea contenido mejor</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b0b12;
+        color: white;
+    }
+
+    .hero {
+        min-height: 650px;
+        padding: 100px 20px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: #6d28d9;
+        opacity: 0.15;
+        filter: blur(120px);
+        border-radius: 50%;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero-content {
+        max-width: 850px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        color: #b69cff;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .hero h1 {
+        font-size: clamp(45px, 7vw, 82px);
+        line-height: 0.95;
+        letter-spacing: -4px;
+        margin: 25px 0;
+    }
+
+    .hero h1 span {
+        color: #8b5cf6;
+    }
+
+    .hero p {
+        color: #a5a5b3;
+        font-size: 19px;
+        line-height: 1.6;
+        max-width: 650px;
+        margin: 0 auto 35px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .primary-button {
+        display: inline-block;
+        padding: 15px 25px;
+        border-radius: 12px;
+        background: #8b5cf6;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+
+    .primary-button:hover {
+        transform: translateY(-3px);
+        background: #7c3aed;
+    }
+
+    .secondary-button {
+        display: inline-block;
+        padding: 15px 25px;
+        border-radius: 12px;
+        border: 1px solid #33333f;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .secondary-button:hover {
+        background: #171722;
+    }
+
+    .features {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 20px;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+        font-size: 38px;
+        margin-bottom: 12px;
+    }
+
+    .section-title p {
+        color: #9999a8;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    .feature-card {
+        padding: 30px;
+        border-radius: 18px;
+        background: #12121b;
+        border: 1px solid #252532;
+        transition: 0.25s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        border-color: #6d28d9;
+    }
+
+    .feature-icon {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        color: #9999a8;
+        line-height: 1.6;
+    }
+
+    .how {
+        padding: 80px 20px;
+        background: #101018;
+        text-align: center;
+    }
+
+    .steps {
+        max-width: 900px;
+        margin: 45px auto 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .step {
+        padding: 25px;
+    }
+
+    .step-number {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #8b5cf6;
+        font-weight: 800;
+        font-size: 18px;
+    }
+
+    .step p {
+        color: #9999a8;
+        line-height: 1.5;
+    }
+
+    .cta {
+        padding: 110px 20px;
+        text-align: center;
+    }
+
+    .cta-box {
+        max-width: 850px;
+        margin: auto;
+        padding: 60px 25px;
+        border-radius: 25px;
+        background: linear-gradient(
+            135deg,
+            #181329,
+            #11111b
+        );
+        border: 1px solid #30264b;
+    }
+
+    .cta h2 {
+        font-size: 42px;
+        margin-top: 0;
+    }
+
+    .cta p {
+        color: #9999a8;
+        margin-bottom: 30px;
+    }
+
+    footer {
+        padding: 30px 7%;
+        border-top: 1px solid #22222c;
+        color: #777783;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+
+        nav {
+            padding: 0 20px;
+        }
+
+        .hero {
+            padding-top: 70px;
+        }
+
+        .hero h1 {
+            letter-spacing: -2px;
+        }
+
+        .features-grid,
+        .steps {
+            grid-template-columns: 1fr;
+        }
+
+        .section-title h2,
+        .cta h2 {
+            font-size: 32px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="tools.html">
+            Herramientas
+        </a>
+
+        <a href="pro.html" class="nav-pro">
+            💎 PRO
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="badge">
+            ✨ CREATOR AI
+        </span>
+
+        <h1>
+            Tu próxima gran idea
+            empieza en <span>ClipForge.</span>
+        </h1>
+
+        <p>
+            Genera ideas originales para tus vídeos,
+            encuentra nuevos conceptos y convierte
+            la inspiración en contenido.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="ideas.html"
+                class="primary-button"
+            >
+                ✨ Generar ideas gratis
+            </a>
+
+            <a
+                href="tools.html"
+                class="secondary-button"
+            >
+                Descubrir ClipForge
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FUNCIONES -->
+
+<section
+    class="features"
+    id="features"
+>
+
+    <div class="section-title">
+
+        <h2>
+            Todo para crear mejor
+        </h2>
+
+        <p>
+            Herramientas diseñadas para creadores.
+        </p>
+
+    </div>
+
+    <div class="features-grid">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💡
+            </div>
+
+            <h3>
+                Ideas con IA
+            </h3>
+
+            <p>
+                Genera conceptos originales para
+                YouTube, Shorts, TikTok y Reels
+                en segundos.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Hooks atractivos
+            </h3>
+
+            <p>
+                Consigue una frase inicial pensada
+                para captar la atención desde
+                los primeros segundos.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎯
+            </div>
+
+            <h3>
+                Pensado para creadores
+            </h3>
+
+            <p>
+                Elige plataforma y tipo de contenido
+                para recibir resultados adaptados
+                a lo que quieres publicar.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- COMO FUNCIONA -->
+
+<section class="how">
+
+    <div class="section-title">
+
+        <h2>
+            ¿Cómo funciona?
+        </h2>
+
+        <p>
+            Crear una idea solo necesita tres pasos.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">
+                1
+            </div>
+
+            <h3>
+                Elige un tema
+            </h3>
+
+            <p>
+                Dile a ClipForge sobre qué quieres
+                crear contenido.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                La IA trabaja
+            </h3>
+
+            <p>
+                ClipForge analiza tus opciones y
+                genera cinco ideas diferentes.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                Empieza a crear
+            </h3>
+
+            <p>
+                Copia tu idea favorita y conviértela
+                en tu próximo vídeo.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+    <div class="cta-box">
+
+        <h2>
+            ¿Tienes una idea?
+        </h2>
+
+        <p>
+            Ahora deja que ClipForge la convierta
+            en algo increíble.
+        </p>
+
+        <a
+            href="ideas.html"
+            class="primary-button"
+        >
+            ✨ Crear mi primera idea
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 ClipForge · Hecho para creadores.
+
+</footer>
+
+
+</body>
+
+</html>

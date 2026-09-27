@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejorador de Ideas — ClipForge</title>
+    <link rel="stylesheet" href="style.css">
+
+
+<style>
+    .improver-panel {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+
+    .improver-box {
+        background: rgba(20, 20, 30, 0.8);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .improver-field {
+        margin-bottom: 22px;
+    }
+
+    .improver-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .improver-textarea,
+    .improver-select {
+        width: 100%;
+        box-sizing: border-box;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: white;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .improver-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .improver-select option {
+        background: #181820;
+        color: white;
+    }
+
+    .improver-button {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .improver-button:hover {
+        transform: translateY(-2px);
+    }
+
+    .improver-button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+        transform: none;
+    }
+
+    .improver-results {
+        margin-top: 25px;
+    }
+
+    .improver-card {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 15px;
+    }
+
+    .improver-card h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .improver-card p {
+        line-height: 1.6;
+        color: #d1d5db;
+        white-space: pre-wrap;
+    }
+
+    .improver-copy {
+        margin-top: 10px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+    .improver-loading,
+    .improver-error {
+        text-align: center;
+        padding: 25px;
+        border-radius: 15px;
+        background: rgba(255,255,255,0.04);
+    }
+
+    .improver-error {
+        color: #fca5a5;
+    }
+
+    .pro-paywall {
+        text-align: center;
+        padding: 40px 25px;
+        border-radius: 20px;
+        background: linear-gradient(
+            135deg,
+            rgba(124,58,237,0.15),
+            rgba(236,72,153,0.12)
+        );
+        border: 1px solid rgba(168,85,247,0.3);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .pro-icon {
+        font-size: 55px;
+        margin-bottom: 10px;
+    }
+
+    .pro-paywall h2 {
+        margin: 0 0 12px;
+        font-size: 30px;
+    }
+
+    .pro-paywall p {
+        max-width: 600px;
+        margin: 0 auto 25px;
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    .pro-benefits {
+        max-width: 500px;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        text-align: left;
+    }
+
+    .pro-benefit {
+        padding: 13px 15px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 10px;
+        color: #e5e7eb;
+    }
+
+    .pro-button {
+        display: inline-block;
+        border: none;
+        border-radius: 12px;
+        padding: 15px 28px;
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .pro-button:hover {
+        transform: translateY(-2px);
+    }
+
+    .pro-back {
+        display: block;
+        margin-top: 18px;
+        color: #a78bfa;
+        text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+        .improver-box {
+            padding: 20px;
+        }
+
+        .pro-benefits {
+            grid-template-columns: 1fr;
+        }
+
+        .pro-paywall h2 {
+            font-size: 25px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+
+<nav>
+
+    <a href="index.html" class="logo">
+        CLIP<span>FORGE</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="tools.html">Herramientas</a>
+        <a href="pro.html" class="pro">💎 PRO</a>
+    </div>
+
+</nav>
+
+<main class="generator">
+
+    <div class="generator-header">
+
+        <span class="badge">
+            🔥 MEJORADOR DE IDEAS
+        </span>
+
+        <h1>
+            Convierte una idea normal en una idea
+            <span class="gradient">brutal</span>
+        </h1>
+
+        <p>
+            Mejora tu idea, aumenta su potencial viral y descubre cómo
+            convertirla en un vídeo mucho más atractivo.
+        </p>
+
+    </div>
+
+    <div class="improver-panel">
+
+        <div class="improver-box">
+
+            <div class="improver-field">
+
+                <label class="improver-label">
+                    💡 Tu idea
+                </label>
+
+                <textarea
+                    id="idea"
+                    class="improver-textarea"
+                    placeholder="Escribe aquí tu idea de vídeo..."
+                ></textarea>
+
+            </div>
+
+            <div class="improver-field">
+
+                <label class="improver-label">
+                    📱 Plataforma
+                </label>
+
+                <select
+                    id="platform"
+                    class="improver-select"
+                >
+                    <option>YouTube</option>
+                    <option>TikTok</option>
+                    <option>Instagram Reels</option>
+                    <option>YouTube Shorts</option>
+                </select>
+
+            </div>
+
+            <div class="improver-field">
+
+                <label class="improver-label">
+                    🎬 Estilo
+                </label>
+
+                <select
+                    id="style"
+                    class="improver-select"
+                >
+                    <option>VIRAL</option>
+                    <option>Gaming</option>
+                    <option>Educativo</option>
+                    <option>Entretenimiento</option>
+                    <option>Storytelling</option>
+                </select>
+
+            </div>
+
+            <button
+                id="improveButton"
+                class="improver-button"
+            >
+                🔥 Mejorar mi idea
+            </button>
+
+        </div>
+
+        <div
+            id="results"
+            class="improver-results"
+        ></div>
+
+    </div>
+
+</main>
+
+<script>
+
+    const improveButton =
+        document.getElementById("improveButton");
+
+    const results =
+        document.getElementById("results");
+
+    improveButton.addEventListener(
+        "click",
+        improveIdea
+    );
+
+    async function improveIdea() {
+
+        const idea =
+            document.getElementById("idea").value.trim();
+
+        const platform =
+            document.getElementById("platform").value;
+
+        const style =
+            document.getElementById("style").value;
+
+        if (!idea) {
+
+            results.innerHTML = `
+                <div class="improver-error">
+                    Escribe una idea antes de continuar.
+                </div>
+            `;
+
+            return;
+        }
+
+        improveButton.disabled = true;
+
+        improveButton.innerText =
+            "⏳ Mejorando idea...";
+
+        results.innerHTML = `
+            <div class="improver-loading">
+                🧠 Analizando y mejorando tu idea...
+            </div>
+        `;
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/improve-idea",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            idea,
+                            platform,
+                            style
+                        })
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (
+                response.status === 403 &&
+                data.code === "PRO_REQUIRED"
+            ) {
+
+                results.innerHTML = `
+                    <div class="pro-paywall">
+
+                        <div class="pro-icon">
+                            💎
+                        </div>
+
+                        <h2>
+                            Desbloquea ClipForge PRO
+                        </h2>
+
+                        <p>
+                            El Mejorador de Ideas es una herramienta
+                            exclusiva de ClipForge PRO. Convierte ideas
+                            normales en conceptos mucho más atractivos
+                            y con mayor potencial viral.
+                        </p>
+
+                        <div class="pro-benefits">
+
+                            <div class="pro-benefit">
+                                ♾️ Ideas ilimitadas
+                            </div>
+
+                            <div class="pro-benefit">
+                                📝 Guiones completos
+                            </div>
+
+                            <div class="pro-benefit">
+                                🎣 Hooks potentes
+                            </div>
+
+                            <div class="pro-benefit">
+                                #️⃣ Títulos y hashtags
+                            </div>
+
+                            <div class="pro-benefit">
+                                🖼️ Ideas de miniaturas
+                            </div>
+
+                            <div class="pro-benefit">
+                                📈 Analizador viral
+                            </div>
+
+                            <div class="pro-benefit">
+                                🎯 Adaptador de nicho
+                            </div>
+
+                            <div class="pro-benefit">
+                                🔥 Mejorador de ideas
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="pro-button"
+                            onclick="unlockPro()"
+                        >
+                            🚀 Desbloquear PRO
+                        </button>
+
+                        <a
+                            href="tools.html#pro"
+                            class="pro-back"
+                        >
+                            ← Ver herramientas PRO
+                        </a>
+
+                    </div>
+                `;
+
+                return;
+            }
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Ha ocurrido un error."
+                );
+
+            }
+
+            results.innerHTML = `
+
+                <div class="improver-card">
+
+                    <h3>
+                        🚀 Idea mejorada
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            data.improvedIdea
+                        )}
+                    </p>
+
+                    <button
+                        class="improver-copy"
+                        onclick="copyText(
+                            this,
+                            '${escapeAttribute(
+                                data.improvedIdea
+                            )}'
+                        )"
+                    >
+                        📋 Copiar idea
+                    </button>
+
+                </div>
+
+                <div class="improver-card">
+
+                    <h3>
+                        🪝 Hook recomendado
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            data.hook
+                        )}
+                    </p>
+
+                    <button
+                        class="improver-copy"
+                        onclick="copyText(
+                            this,
+                            '${escapeAttribute(
+                                data.hook
+                            )}'
+                        )"
+                    >
+                        📋 Copiar hook
+                    </button>
+
+                </div>
+
+                <div class="improver-card">
+
+                    <h3>
+                        💥 Qué se ha mejorado
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            data.improvements
+                        )}
+                    </p>
+
+                </div>
+
+                <div class="improver-card">
+
+                    <h3>
+                        📈 Potencial viral
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            data.viralPotential
+                        )}
+                    </p>
+
+                </div>
+
+                <div class="improver-card">
+
+                    <h3>
+                        💡 Consejo final
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            data.finalTip
+                        )}
+                    </p>
+
+                </div>
+
+            `;
+
+        } catch (error) {
+
+            results.innerHTML = `
+                <div class="improver-error">
+                    ❌ ${escapeHTML(
+                        error.message
+                    )}
+                </div>
+            `;
+
+        } finally {
+
+            improveButton.disabled = false;
+
+            improveButton.innerText =
+                "🔥 Mejorar mi idea";
+
+        }
+    }
+
+    async function copyText(
+        button,
+        text
+    ) {
+
+        try {
+
+            await navigator.clipboard.writeText(
+                text
+            );
+
+            const original =
+                button.innerText;
+
+            button.innerText =
+                "✓ Copiado";
+
+            setTimeout(() => {
+
+                button.innerText =
+                    original;
+
+            }, 2000);
+
+        } catch (error) {
+
+            alert(
+                "No se pudo copiar el texto."
+            );
+
+        }
+    }
+
+    function unlockPro() {
+
+        alert(
+            "🚀 El sistema de pagos de ClipForge PRO todavía no está conectado. ¡Lo añadiremos próximamente!"
+        );
+
+    }
+
+    function escapeHTML(text) {
+
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+    function escapeAttribute(text) {
+
+        return String(text)
+            .replace(/\\/g, "\\\\")
+            .replace(/'/g, "\\'")
+            .replace(/\n/g, "\\n")
+            .replace(/\r/g, "");
+
+    }
+
+</script>
+
+
+</body>
+</html>
