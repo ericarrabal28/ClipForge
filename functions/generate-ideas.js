@@ -28,7 +28,7 @@ export async function onRequestPost(context) {
         if (!apiKey) {
             return new Response(
                 JSON.stringify({
-                    error: "No se ha configurado la API de Gemini."
+                    error: "No se ha configurado la API de Gemini en Cloudflare."
                 }),
                 {
                     status: 500,
@@ -90,11 +90,12 @@ Devuelve ÚNICAMENTE JSON válido con esta estructura:
 `;
 
         const response = await fetch(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=" + apiKey,
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent",
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": apiKey
                 },
                 body: JSON.stringify({
                     contents: [
@@ -113,14 +114,52 @@ Devuelve ÚNICAMENTE JSON válido con esta estructura:
             }
         );
 
-        const data = await response.json();
+        const responseText = await response.text();
+
+        if (!responseText) {
+            console.error("Gemini devolvió una respuesta vacía.");
+
+            return new Response(
+                JSON.stringify({
+                    error: "Gemini devolvió una respuesta vacía."
+                }),
+                {
+                    status: 502,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+        }
+
+        let data;
+
+        try {
+            data = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error("Respuesta no válida de Gemini:", responseText);
+
+            return new Response(
+                JSON.stringify({
+                    error: "Gemini devolvió una respuesta que no es JSON válido."
+                }),
+                {
+                    status: 502,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+        }
 
         if (!response.ok) {
             console.error("Error Gemini:", data);
 
             return new Response(
                 JSON.stringify({
-                    error: "Ha ocurrido un error al generar las ideas."
+                    error:
+                        data?.error?.message ||
+                        "Ha ocurrido un error al generar las ideas."
                 }),
                 {
                     status: response.status,
@@ -135,12 +174,14 @@ Devuelve ÚNICAMENTE JSON válido con esta estructura:
             data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
         if (!text) {
+            console.error("Gemini no devolvió contenido:", data);
+
             return new Response(
                 JSON.stringify({
                     error: "Gemini no devolvió contenido."
                 }),
                 {
-                    status: 500,
+                    status: 502,
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -148,7 +189,25 @@ Devuelve ÚNICAMENTE JSON válido con esta estructura:
             );
         }
 
-        const result = JSON.parse(text);
+        let result;
+
+        try {
+            result = JSON.parse(text);
+        } catch (parseError) {
+            console.error("Gemini devolvió JSON inválido:", text);
+
+            return new Response(
+                JSON.stringify({
+                    error: "Gemini no devolvió el formato JSON esperado."
+                }),
+                {
+                    status: 502,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+        }
 
         return new Response(
             JSON.stringify(result),
@@ -161,11 +220,11 @@ Devuelve ÚNICAMENTE JSON válido con esta estructura:
         );
 
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error en generate-ideas:", error);
 
         return new Response(
             JSON.stringify({
-                error: "Ha ocurrido un error al generar el contenido."
+                error: "Ha ocurrido un error al generar las ideas."
             }),
             {
                 status: 500,
