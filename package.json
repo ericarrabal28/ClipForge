@@ -19,6 +19,7 @@
     "openai": "^7.9.0"
   },
   "devDependencies": {
+    "workerd": "^1.20260903.1",
     "wrangler": "4.129.0"
   }
 }
